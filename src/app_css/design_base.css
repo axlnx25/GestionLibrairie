@@ -14,3 +14,11 @@
     -fx-background-color: #1565C0;  /* bleu clair */
 }
 
+.button {
+    -fx-max-width: Infinity;
+}
+
+.buttonq {
+    -fx-max-width: Infinity;
+}
+
