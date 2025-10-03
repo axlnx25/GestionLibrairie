@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_fxml.UtilisateurController">
    <top>
       <HBox prefHeight="94.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -54,7 +54,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #1565C0;">
                                  <children>
-                                    <JFXButton layoutX="43.0" layoutY="3.0" prefHeight="30.0" prefWidth="166.0" style="-fx-background-color: #1565C0;" text="TABLEAU DE BORD" textFill="WHITE">
+                                    <JFXButton layoutX="43.0" layoutY="3.0" onAction="#afficher_tableau_de_bord" prefHeight="30.0" prefWidth="166.0" style="-fx-background-color: #1565C0;" text="TABLEAU DE BORD" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
@@ -84,12 +84,12 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton layoutX="41.0" layoutY="-1.0" prefHeight="30.0" prefWidth="157.0" style="-fx-background-color: #1565c0;" text="NOUVELLE VENTE" textFill="WHITE">
+                                    <JFXButton layoutX="41.0" layoutY="-1.0" onAction="#nouvelle_vente" prefHeight="30.0" prefWidth="157.0" style="-fx-background-color: #1565c0;" text="NOUVELLE VENTE" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="46.0" layoutY="39.0" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #1565c0;" text="HISTORIQUE VENTE" textFill="WHITE">
+                                    <JFXButton layoutX="46.0" layoutY="39.0" onAction="#historique_vente" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #1565c0;" text="HISTORIQUE VENTE" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
@@ -120,24 +120,18 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton layoutX="46.0" layoutY="3.0" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: #1565c0;" text="NOUVEAU ARTICLE" textFill="WHITE">
+                                    <JFXButton layoutX="46.0" layoutY="70.0" onAction="#approvisionnement" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #1565c0;" text="APPROVISIONNEMENT" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="46.0" layoutY="70.0" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: #1565c0;" text="APPROVISIONNEMENT" textFill="WHITE">
+                                    <JFXButton layoutX="46.0" layoutY="14.0" onAction="#consulter_stock" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #1565c0;" text="STOCK" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="46.0" layoutY="39.0" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #1565c0;" text="STOCK" textFill="WHITE">
-                                       <font>
-                                          <Font name="Montserrat Black" size="13.0" />
-                                       </font>
-                                    </JFXButton>
-                                    <AnchorPane layoutX="19.0" layoutY="12.0" prefHeight="12.0" prefWidth="26.0" style="-fx-background-color: #FB8c00;" />
                                     <AnchorPane layoutX="19.0" layoutY="79.0" prefHeight="12.0" prefWidth="26.0" style="-fx-background-color: #FB8c00;" />
-                                    <AnchorPane layoutX="19.0" layoutY="48.0" prefHeight="12.0" prefWidth="26.0" style="-fx-background-color: #FB8c00;" />
+                                    <AnchorPane layoutX="19.0" layoutY="23.0" prefHeight="12.0" prefWidth="26.0" style="-fx-background-color: #FB8c00;" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -162,12 +156,12 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton layoutX="44.0" layoutY="47.0" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #1565c0;" text="HISTORIQUE DEPENSE" textFill="WHITE">
+                                    <JFXButton layoutX="44.0" layoutY="47.0" onAction="#historique_depense" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: #1565c0;" text="HISTORIQUE DEPENSE" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="41.0" layoutY="4.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: #1565c0;" text="NOUVELLE DEPENSE" textFill="WHITE">
+                                    <JFXButton layoutX="41.0" layoutY="4.0" onAction="#nouvelle_depense" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: #1565c0;" text="NOUVELLE DEPENSE" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
@@ -198,17 +192,17 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton layoutX="52.0" layoutY="-2.0" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: #1565c0;" text="ENTREES" textFill="WHITE">
+                                    <JFXButton layoutX="52.0" layoutY="-2.0" onAction="#entrees_caisse" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: #1565c0;" text="ENTREES" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="52.0" layoutY="27.0" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #1565c0;" text="SORTIES" textFill="WHITE">
+                                    <JFXButton layoutX="52.0" layoutY="27.0" onAction="#sorties_caisse" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #1565c0;" text="SORTIES" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
                                     </JFXButton>
-                                    <JFXButton layoutX="52.0" layoutY="54.0" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #1565c0;" text="CAISSE" textFill="WHITE">
+                                    <JFXButton layoutX="52.0" layoutY="54.0" onAction="#caisse" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #1565c0;" text="CAISSE" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
@@ -240,7 +234,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton layoutX="49.0" layoutY="8.0" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #1565C0;" text="UTILISATEURS" textFill="WHITE">
+                                    <JFXButton layoutX="49.0" layoutY="8.0" onAction="#utilisateur" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #1565C0;" text="UTILISATEURS" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Black" size="13.0" />
                                        </font>
@@ -260,7 +254,7 @@
              <HBox prefHeight="33.0" prefWidth="276.0">
                  <children>
                      <ImageView fitHeight="36.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
-                     <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="212.0" style="-fx-background-color: red;" text="DECONNEXION">
+                     <Button mnemonicParsing="false" onAction="#deconnexion" prefHeight="34.0" prefWidth="212.0" style="-fx-background-color: red;" text="DECONNEXION">
                          <font>
                              <Font name="Montserrat Black" size="16.0" />
                          </font>
@@ -280,12 +274,15 @@
             </ImageView>
             <StackPane prefHeight="381.0" prefWidth="726.0">
                <children>
-                  <TableView prefHeight="292.0" prefWidth="806.0">
+                  <TableView fx:id="utilisateur_tableview" prefHeight="292.0" prefWidth="806.0">
                     <columns>
-                      <TableColumn prefWidth="266.67" text="NOM UTILISATEUR" />
-                      <TableColumn prefWidth="266.66" text="MOT DE PASSE" />
-                        <TableColumn prefWidth="266.66" text="ROLE" />
+                      <TableColumn fx:id="colonne_nom" prefWidth="266.67" text="NOM UTILISATEUR" />
+                      <TableColumn fx:id="colonne_mot_de_passe" prefWidth="266.66" text="MOT DE PASSE" />
+                        <TableColumn fx:id="colonne_role" prefWidth="266.66" text="ROLE" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </StackPane>
@@ -297,7 +294,7 @@
                         <Font name="Montserrat Black" size="13.0" />
                      </font>
                   </Label>
-                  <TextField style="-fx-border-insets: 10px;" />
+                  <TextField fx:id="nom_textfied" style="-fx-border-insets: 10px;" />
                   <Label prefHeight="26.0" prefWidth="59.0">
                      <font>
                         <Font name="Montserrat Black" size="13.0" />
@@ -308,7 +305,7 @@
                         <Font name="Montserrat Black" size="13.0" />
                      </font>
                   </Label>
-                  <TextField style="-fx-border-insets: 10px;" />
+                  <TextField fx:id="mot_de_passe_textfield" style="-fx-border-insets: 10px;" />
                </children>
             </HBox>
             <HBox prefHeight="52.0" prefWidth="806.0">
@@ -319,25 +316,25 @@
                         <Font name="Montserrat Black" size="13.0" />
                      </font>
                   </Label>
-                  <TextField prefWidth="160.0" />
+                  <TextField fx:id="role_textfield" prefWidth="160.0" />
                </children>
             </HBox>
             <HBox prefHeight="62.0" prefWidth="779.0">
                <children>
                   <Label prefHeight="28.0" prefWidth="14.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #43A047;" stylesheets="@../app_css/design_base.css" text="AJOUTER" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#ajouter_utilisateur" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #43A047;" stylesheets="@../app_css/design_base.css" text="AJOUTER" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Montserrat ExtraBold" size="15.0" />
                      </font>
                   </Button>
                   <Label prefHeight="27.0" prefWidth="78.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #fb8c00;" stylesheets="@../app_css/design_base.css" text="MODIFIER" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#modifier_utilisateur" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #fb8c00;" stylesheets="@../app_css/design_base.css" text="MODIFIER" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Montserrat ExtraBold" size="15.0" />
                      </font>
                   </Button>
                   <Label prefHeight="27.0" prefWidth="78.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: red;" stylesheets="@../app_css/design_base.css" text="SUPPRIMER" HBox.hgrow="ALWAYS">
+                  <Button mnemonicParsing="false" onAction="#supprimer_utilisateur" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: red;" stylesheets="@../app_css/design_base.css" text="SUPPRIMER" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Montserrat ExtraBold" size="15.0" />
                      </font>
