@@ -5,7 +5,12 @@
 package app_controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import app_dao.UtilisateurDAO;
+import app_helper.Session;
+import app_model.Utilisateur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,13 +31,26 @@ public class LoginController implements Initializable {
     /**
      * Initializes the controller class.
      */
+
+    UtilisateurDAO utilisateurDAO;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
     @FXML
-    private void se_connecter(ActionEvent event) {
+    private void se_connecter(ActionEvent event) throws SQLException {
+        //verification entree utilisateur
+        Utilisateur utilisateurConnecter = utilisateurDAO.loginUtilisateur(nom_utilisateur_text_field.getText(), mot_de_passe_text_field.getText());
+        if (utilisateurConnecter != null) {
+            Session.getInstance().setUtilisateur(utilisateurConnecter);
+            //acces a l'app
+        } else {
+            //appel alerte
+        }
     }
-    
+
+
+
 }

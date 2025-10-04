@@ -17,6 +17,11 @@ public class Utilisateur {
         this.motDePasse.set(motDePasse);
     }
 
+    public Utilisateur(String nomUtilisateur, String motDePasse) {
+        this.nomUtilisateur.set(nomUtilisateur);
+        this.motDePasse.set(motDePasse);
+    }
+
     public int getIdUtilisateur() {
         return this.idUtilisateur.get();
     }

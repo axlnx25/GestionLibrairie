@@ -12,7 +12,7 @@ public class VenteDAO {
         this.connection = conn;
     }
 
-    public void ajouterVente(Vente vente) throws SQLException {
+    public void ajouterVenteBDD(Vente vente) throws SQLException {
         String sql = "INSERT INTO Vente (quantite_vendu, date_vente, remise_vente, numero_utilisateur) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

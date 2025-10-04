@@ -12,7 +12,25 @@ public class UtilisateurDAO {
         this.connection = conn;
     }
 
-    public void creerUtilisateur(Utilisateur utilisateur) throws SQLException {
+    public Utilisateur loginUtilisateur(String username, String password) throws SQLException {
+        String sql = "SELECT * FROM Utilisateur WHERE nom_utilisateur = ?, mot_de_passe = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            Utilisateur u = new Utilisateur(
+                    resultSet.getString("nom_utilisateur"),
+                    resultSet.getString("role_utilisateur"),
+                    resultSet.getString("mot_de_passe")
+            );
+            return u;
+        } else  {
+            return null;
+        }
+    }
+
+    public void ajouterUtilisateurBDD(Utilisateur utilisateur) throws SQLException {
         String sql = "INSERT INTO Utilisateur (nom_utilisateur, role_utilisateur, mot_de_passe) VALUES (?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -27,7 +45,7 @@ public class UtilisateurDAO {
         }
     }
 
-    public void modifierUtilisateur(Utilisateur utilisateur) throws SQLException {
+    public void modifierUtilisateurBDD(Utilisateur utilisateur) throws SQLException {
         String sql = "UPDATE Utilisateur SET nom_utilisateur = ?, role_utilisateur = ?, mot_de_passe = ? WHERE id_utilisateur = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -39,7 +57,7 @@ public class UtilisateurDAO {
         statement.executeUpdate();
     }
 
-    public void supprimerUtilisateur(Utilisateur utilisateur) throws SQLException {
+    public void supprimerUtilisateurBDD(Utilisateur utilisateur) throws SQLException {
         String sql = "DELETE FROM Utilisateur WHERE id_utilisateur = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
 

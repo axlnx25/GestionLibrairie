@@ -12,7 +12,7 @@ public class ArticleDAO {
         this.connection = conn;
     }
 
-    public void ajouterArticle(Article article) throws SQLException {
+    public void ajouterArticleBDD(Article article) throws SQLException {
         String sql ="INSERT INTO Article (designation_article, quantite_article, prix_vente_article, code_utilisateur, type_article) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, article.getNomArticle());
@@ -28,7 +28,7 @@ public class ArticleDAO {
         }
     }
 
-    public void modifierArticle(Article article) throws SQLException {
+    public void modifierArticleBDD(Article article) throws SQLException {
         String sql = "UPDATE Article SET designation_article = ?, quantite_article = ?, prix_vente_article = ?, code_utilisateur = ?, type_article = ? WHERE id_article = ? ";
         PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -42,7 +42,7 @@ public class ArticleDAO {
         statement.executeUpdate();
     }
 
-    public void supprimerArticle(Article article) throws SQLException {
+    public void supprimerArticleBDD(Article article) throws SQLException {
         String sql = "DELETE FROM Article WHERE id_article = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, article.getIdArticle());
