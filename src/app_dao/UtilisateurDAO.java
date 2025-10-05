@@ -24,6 +24,7 @@ public class UtilisateurDAO {
                     resultSet.getString("role_utilisateur"),
                     resultSet.getString("mot_de_passe")
             );
+            u.setIdUtilisateur(resultSet.getInt("id_utilisateur"));
             return u;
         } else  {
             return null;

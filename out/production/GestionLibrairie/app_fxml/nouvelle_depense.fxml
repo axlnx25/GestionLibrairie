@@ -280,7 +280,7 @@
                                 <Font name="Montserrat Black" size="13.0" />
                             </font>
                         </Label>
-                        <TextField style="-fx-border-insets: 10px;" />
+                        <TextField fx:id="motif_depense_textfield" style="-fx-border-insets: 10px;" />
                         <Label prefHeight="26.0" prefWidth="59.0">
                             <font>
                                 <Font name="Montserrat Black" size="13.0" />
@@ -291,7 +291,7 @@
                                 <Font name="Montserrat Black" size="13.0" />
                             </font>
                         </Label>
-                  <DatePicker />
+                  <DatePicker fx:id="date_depense" />
                     </children>
                 </HBox>
                 <HBox prefHeight="120.0" prefWidth="806.0">
@@ -302,18 +302,24 @@
                                 <Font name="Montserrat Black" size="13.0" />
                             </font>
                         </Label>
-                        <TextField prefWidth="160.0" />
+                        <TextField fx:id="montant_depense" prefWidth="160.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="98.0" prefWidth="806.0">
                     <children>
-                        <Label prefHeight="28.0" prefWidth="14.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
+                        <Label prefHeight="28.0" prefWidth="138.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#ajouter_depense" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #43A047;" stylesheets="@../app_css/design_base.css" text="AJOUTER" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font name="Montserrat ExtraBold" size="15.0" />
                             </font>
                         </Button>
-                        <Label prefHeight="28.0" prefWidth="20.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
+                        <Label prefHeight="28.0" prefWidth="122.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#annuler_depense" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: red;" stylesheets="@../app_css/design_base.css" text="ANNULER">
+                     <font>
+                        <Font name="Montserrat ExtraBold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Label prefHeight="28.0" prefWidth="138.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
             </children>

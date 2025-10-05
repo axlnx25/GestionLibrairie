@@ -4,6 +4,7 @@ import app_model.Approvisionnement;
 import app_model.Vente;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ApprovisionnementDAO {
@@ -46,10 +47,10 @@ public class ApprovisionnementDAO {
         statement.executeUpdate();
     }
 
-    public void supprimerApprovisionnementBDD(int id_approvisionnement) throws SQLException {
+    public void supprimerApprovisionnementBDD(Approvisionnement approvisionnement) throws SQLException {
         String sql ="DELETE FROM Approvisionnement WHERE id_approvisionnement = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, id_approvisionnement);
+        statement.setInt(1, approvisionnement.getIdApprovisionnement());
         statement.executeUpdate();
     }
 
@@ -73,5 +74,38 @@ public class ApprovisionnementDAO {
         }
         return approvisionnements;
     }
+
+    public int getTotalApprovisionnement() throws SQLException {
+        String sql = "SELECT SUM(montant_approvisionnement) AS total FROM Approvisionnement";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("total"); // retourne la somme totale
+        }
+        return 0; // si aucun approvisionnement
+    }
+
+    public int getNombreApprovisionnementsDuJour(LocalDate date) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Approvisionnement WHERE DATE(date_approvisionnement) = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(date));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    public int getTotalApprovisionnementsDuJour(LocalDate date) throws SQLException {
+        String sql = "SELECT COALESCE(SUM(montant_appro),0) FROM Approvisionnement WHERE DATE(date_approvisionnement) = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(date));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+
 
 }

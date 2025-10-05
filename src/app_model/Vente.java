@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class Vente {
     private IntegerProperty idVente = new SimpleIntegerProperty();
@@ -14,6 +15,7 @@ public class Vente {
     private ObjectProperty<LocalDate> dateVente = new SimpleObjectProperty<>();
     private IntegerProperty remiseVente = new SimpleIntegerProperty();
     private IntegerProperty codeUtilisateur = new SimpleIntegerProperty();
+    private List<Article> articles;
 
     public Vente(int quantiteVendu, LocalDate dateVente, int remiseVente, int codeUtilisateur) {
         this.quantiteVendu.set(quantiteVendu);

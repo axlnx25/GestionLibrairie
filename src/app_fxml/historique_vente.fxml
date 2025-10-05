@@ -332,7 +332,7 @@
                   <AnchorPane prefHeight="614.0" prefWidth="14.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
                   <VBox prefHeight="614.0" prefWidth="458.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <TableView prefHeight="387.0" prefWidth="458.0">
+                        <TableView fx:id="details_tableview" prefHeight="387.0" prefWidth="458.0">
                           <columns>
                             <TableColumn fx:id="colonne_article" prefWidth="75.0" text="ARTICLE" />
                             <TableColumn fx:id="colonne_quantite" prefWidth="75.0" text="QUANTITE" />

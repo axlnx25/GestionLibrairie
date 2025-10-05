@@ -33,6 +33,9 @@ public class LoginController implements Initializable {
      */
 
     UtilisateurDAO utilisateurDAO;
+    public void setUtilisateurDAO_login(UtilisateurDAO utilisateurDAO) {
+        this.utilisateurDAO = utilisateurDAO;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,7 +50,7 @@ public class LoginController implements Initializable {
             Session.getInstance().setUtilisateur(utilisateurConnecter);
             //acces a l'app
         } else {
-            //appel alerte
+            //appel alerte erreur login password
         }
     }
 

@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -305,7 +306,7 @@
                         <Font name="Montserrat Black" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="mot_de_passe_textfield" style="-fx-border-insets: 10px;" />
+                  <TextField fx:id="mot_de_passe_textfield" />
                </children>
             </HBox>
             <HBox prefHeight="52.0" prefWidth="806.0">
@@ -316,7 +317,7 @@
                         <Font name="Montserrat Black" size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="role_textfield" prefWidth="160.0" />
+                  <ComboBox fx:id="combo_role" prefHeight="26.0" prefWidth="165.0" />
                </children>
             </HBox>
             <HBox prefHeight="62.0" prefWidth="779.0">

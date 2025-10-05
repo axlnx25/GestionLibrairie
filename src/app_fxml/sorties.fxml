@@ -276,9 +276,9 @@
                   <AnchorPane prefHeight="208.0" prefWidth="26.0" HBox.hgrow="ALWAYS" />
                   <TableView fx:id="depnse_tableview" prefHeight="208.0" prefWidth="794.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="MOTIF" />
-                      <TableColumn prefWidth="75.0" text="MONTANT" />
-                        <TableColumn prefWidth="75.0" text="DATE" />
+                      <TableColumn fx:id="col_depense_motif" prefWidth="75.0" text="MOTIF" />
+                      <TableColumn fx:id="col_depense_montant" prefWidth="75.0" text="MONTANT" />
+                        <TableColumn fx:id="col_depense_date" prefWidth="75.0" text="DATE" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -301,10 +301,10 @@
                   <AnchorPane prefHeight="266.0" prefWidth="22.0" HBox.hgrow="ALWAYS" />
                   <TableView fx:id="appprovisionnement_tableview" prefHeight="266.0" prefWidth="786.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="FOURNISSEUR" />
-                      <TableColumn prefWidth="75.0" text="ARTICLE" />
-                        <TableColumn prefWidth="75.0" text="QUANTITE" />
-                        <TableColumn prefWidth="75.0" text="MONTANT" />
+                      <TableColumn fx:id="col_app_fournisseur" prefWidth="75.0" text="FOURNISSEUR" />
+                      <TableColumn fx:id="col_app_articlenom" prefWidth="75.0" text="ARTICLE" />
+                        <TableColumn fx:id="col_app_quantite_appro" prefWidth="75.0" text="QUANTITE" />
+                        <TableColumn fx:id="col_app_montant_appro" prefWidth="75.0" text="MONTANT" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

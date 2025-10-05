@@ -65,7 +65,7 @@ public class Stock_nouvelle_articleController implements Initializable {
     public void setArticleDAO_Stock(ArticleDAO articleDAO) {
         this.articleDAO = articleDAO;
     }
-    public void setTypeArticleDAO(TypeArticleDAO typeArticleDAO) {
+    public void setTypeArticleDAO_Stock(TypeArticleDAO typeArticleDAO) {
         this.typeArticleDAO = typeArticleDAO;
     }
 
@@ -82,6 +82,15 @@ public class Stock_nouvelle_articleController implements Initializable {
         colonne_article.setCellValueFactory(data -> data.getValue().nomArticleProperty());
         colonne_quantite.setCellValueFactory(data -> data.getValue().quantiteArticleProperty().asObject());
         colonne_prix_vente.setCellValueFactory(data -> data.getValue().prixVenteArticleProperty().asObject());
+
+        stock_tableview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                article_textfield.setText(newValue.getNomArticle());
+                type_article_combobox.setValue(newValue.getTypeArticle());
+                prix_vente_textfield.setText(String.valueOf(newValue.getPrixVenteArticle()));
+                quantite_textfield.setText(String.valueOf(newValue.getQuantiteArticle()));
+            }
+        });
 
     }    
 
@@ -115,7 +124,7 @@ public class Stock_nouvelle_articleController implements Initializable {
 
     @FXML
     private void consulter_stock(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/consulter_stock.fxml"));
+        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/stock_nouvelle_article.fxml"));
         Stage stage = (Stage) type_article_combobox.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -136,14 +145,14 @@ public class Stock_nouvelle_articleController implements Initializable {
 
     @FXML
     private void entrees_caisse(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/entrees_caisse.fxml"));
+        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/entrees.fxml"));
         Stage stage = (Stage) type_article_combobox.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void sorties_caisse(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/sorties_caisse.fxml"));
+        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/sorties.fxml"));
         Stage stage = (Stage) type_article_combobox.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -216,7 +225,7 @@ public class Stock_nouvelle_articleController implements Initializable {
 
             valeur_stock_label.setText(valeurStock(stock_tableview.getItems()));
         } else {
-            //appel alerte
+            //appel alerte verifier champ
         }
     }
 

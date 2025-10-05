@@ -296,7 +296,7 @@
                               <Font name="Montserrat Black" size="13.0" />
                            </font>
                         </Label>
-                        <TextField />
+                        <TextField fx:id="quantite_vente_textfield" />
                      </children>
                   </HBox>
                   <HBox prefHeight="74.0" prefWidth="420.0">
@@ -348,25 +348,18 @@
                               <Font name="Montserrat Black" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="26.0" prefWidth="133.0" />
+                        <TextField fx:id="remise_text_field" prefHeight="26.0" prefWidth="133.0" />
                         <Label prefHeight="18.0" prefWidth="15.0" />
                         <Label prefHeight="32.0" prefWidth="79.0" text="DATE">
                            <font>
                               <Font name="Montserrat Black" size="13.0" />
                            </font>
                         </Label>
-                        <DatePicker prefHeight="26.0" prefWidth="143.0" />
+                        <DatePicker fx:id="date_vente" prefHeight="26.0" prefWidth="143.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="59.0" prefWidth="450.0">
                      <children>
-                        <Label prefHeight="32.0" prefWidth="79.0" text="REÇUE">
-                           <font>
-                              <Font name="Montserrat Black" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField prefHeight="26.0" prefWidth="133.0" />
-                        <Label prefHeight="18.0" prefWidth="15.0" />
                         <Label fx:id="montant_facture_label" prefHeight="32.0" prefWidth="224.0" text="MONTANT XXXXX F">
                            <font>
                               <Font name="Montserrat Black" size="13.0" />

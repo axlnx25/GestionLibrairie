@@ -1,7 +1,9 @@
 package app_DTO;
 
+import app_dao.VenteDAO;
 import javafx.beans.property.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class FactureDTO {
@@ -114,6 +116,20 @@ public class FactureDTO {
     public StringProperty idFactureProperty() {
         StringProperty result = new SimpleStringProperty(getIDFacture());
         return (result);
+    }
+
+    private VenteDAO venteDAO;
+    public void  setVenteDAO(VenteDAO venteDAO) {
+        this.venteDAO = venteDAO;
+    }
+    public int remiseVente(int id_vente) throws SQLException {
+        return venteDAO.getRemiseVente(id_vente);
+    }
+    public int totalVente_Facture(int id_vente) throws SQLException {
+        return venteDAO.getTotalVente(id_vente);
+    }
+    public int totalToutesFactures () throws SQLException {
+        return venteDAO.getTotalToutesVente();
     }
 
 }
