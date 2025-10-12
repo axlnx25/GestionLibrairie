@@ -1,0 +1,24 @@
+.custom-accordion {
+    -fx-background-color: #11565C0;  /* fond bleu */
+}
+
+/* le titre des TitledPane qui sont DANS cet accordion */
+.custom-accordion .titled-pane > .title {
+    -fx-background-color: #1565C0;  /* bleu foncé */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* le contenu des TitledPane */
+.custom-accordion .titled-pane > .content {
+    -fx-background-color: #1565C0;  /* bleu clair */
+}
+
+.button {
+    -fx-max-width: Infinity;
+}
+
+.buttonq {
+    -fx-max-width: Infinity;
+}
+
