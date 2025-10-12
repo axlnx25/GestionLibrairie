@@ -1,7 +1,6 @@
 package app_dao;
 
 import app_model.Approvisionnement;
-import app_model.Vente;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -97,7 +96,7 @@ public class ApprovisionnementDAO {
     }
 
     public int getTotalApprovisionnementsDuJour(LocalDate date) throws SQLException {
-        String sql = "SELECT COALESCE(SUM(montant_appro),0) FROM Approvisionnement WHERE DATE(date_approvisionnement) = ?";
+        String sql = "SELECT COALESCE(SUM(montant_approvisionnement),0) FROM Approvisionnement WHERE DATE(date_approvisionnement) = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setDate(1, Date.valueOf(date));
             ResultSet rs = stmt.executeQuery();

@@ -156,13 +156,12 @@ public class VenteDAO {
     }
 
     public int getTotalVentesDuJour(LocalDate date) throws SQLException {
-        String sql = "SELECT COALESCE(SUM(montant_total),0) FROM Vente WHERE DATE(date_vente) = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setDate(1, Date.valueOf(date));
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return rs.getInt(1);
+        // Calcule en s'appuyant sur getTotalVente pour chaque vente du jour
+        int total = 0;
+        for (Vente v : filtrerVenteDate(date, date)) {
+            total += getTotalVente(v.getIdVente());
         }
-        return 0;
+        return total;
     }
 
 

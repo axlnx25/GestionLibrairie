@@ -10,9 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import app_dao.ApprovisionnementDAO;
-import app_dao.DepenseDAO;
-import app_dao.VenteDAO;
+import app_dao.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,121 +44,189 @@ public class Tableau_bordController implements Initializable {
     private VenteDAO venteDAO;
     private DepenseDAO depenseDAO;
     private ApprovisionnementDAO approvisionnementDAO;
+    private ArticleDAO articleDAO;
+    private TypeArticleDAO typeArticleDAO;
+    private FactureDAO factureDAO;
+    private UtilisateurDAO utilisateurDAO;
 
     public void setDAO_TableauBord(VenteDAO venteDAO, DepenseDAO depenseDAO, ApprovisionnementDAO approvisionnementDAO) {
         this.venteDAO = venteDAO;
         this.depenseDAO = depenseDAO;
         this.approvisionnementDAO = approvisionnementDAO;
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+        // Si la vue est déjà affichée, mettre à jour immédiatement
         try {
-            LocalDate today = LocalDate.now();
-
-            // Ventes
-            int nbVentes = venteDAO.getNombreVentesDuJour(today);
-            int totalVentes = venteDAO.getTotalVentesDuJour(today);
-
-            // Dépenses
-            int nbDepenses = depenseDAO.getNombreDepensesDuJour(today);
-            int totalDepenses = depenseDAO.getTotalDepensesDuJour(today);
-
-            // Approvisionnements
-            int nbAppro = approvisionnementDAO.getNombreApprovisionnementsDuJour(today);
-            int totalAppro = approvisionnementDAO.getTotalApprovisionnementsDuJour(today);
-
-            // Encaisse = ventes - (dépenses + appro)
-            int encaisse = totalVentes - (totalDepenses + totalAppro);
-
-            // Mise à jour des labels
-            nombre_vente_label.setText("NOMBRE DE VENTE AUJOURD' HUI : " + nbVentes);
-            total_vente_label.setText("MONTANT VENTE AUJOURD' HUI : " + totalVentes);
-
-            nombre_depense_label.setText("NOMBRE DE DEPENSE/APPROVISIONNEMENT AUJOURD' HUI : " + (nbDepenses + nbAppro)); // total opérations sortantes
-            total_depense_label.setText("MONTANT VENTE AUJOURD' HUI : " + (totalDepenses + totalAppro));
-
-            total_encaisse_label.setText("MONTANT ENTRÉ EN CAISSE AUJOURD' HUI : " + encaisse);
-
+            updateDashboardLabels();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public void setAllDAO(VenteDAO venteDAO, DepenseDAO depenseDAO, ApprovisionnementDAO approvisionnementDAO,
+                          ArticleDAO articleDAO, TypeArticleDAO typeArticleDAO, FactureDAO factureDAO,
+                          UtilisateurDAO utilisateurDAO) {
+        this.venteDAO = venteDAO;
+        this.depenseDAO = depenseDAO;
+        this.approvisionnementDAO = approvisionnementDAO;
+        this.articleDAO = articleDAO;
+        this.typeArticleDAO = typeArticleDAO;
+        this.factureDAO = factureDAO;
+        this.utilisateurDAO = utilisateurDAO;
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Les DAO peuvent ne pas être encore injectés ici. Si null, attendre l'injection.
+        if (venteDAO == null || depenseDAO == null || approvisionnementDAO == null) {
+            return;
+        }
+        try {
+            updateDashboardLabels();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateDashboardLabels() throws SQLException {
+        LocalDate today = LocalDate.now();
+
+        int nbVentes = venteDAO.getNombreVentesDuJour(today);
+        int totalVentes = venteDAO.getTotalVentesDuJour(today);
+
+        int nbDepenses = depenseDAO.getNombreDepensesDuJour(today);
+        int totalDepenses = depenseDAO.getTotalDepensesDuJour(today);
+
+        int nbAppro = approvisionnementDAO.getNombreApprovisionnementsDuJour(today);
+        int totalAppro = approvisionnementDAO.getTotalApprovisionnementsDuJour(today);
+
+        int encaisse = totalVentes - (totalDepenses + totalAppro);
+
+        nombre_vente_label.setText("NOMBRE DE VENTE: " + nbVentes);
+        total_vente_label.setText("MONTANT VENTE: " + totalVentes);
+        nombre_depense_label.setText("NOMBRE DE SORTIE: " + (nbDepenses + nbAppro));
+        total_depense_label.setText("MONTANT SORTIE: " + (totalDepenses + totalAppro));
+        total_encaisse_label.setText("MONTANT CAISSE: " + encaisse);
+    }
+
     @FXML
     private void afficher_tableau_de_bord(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/tableau_bord.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/tableau_bord.fxml"));
+        Parent root = loader.load();
+        Tableau_bordController ctrl = loader.getController();
+        ctrl.setDAO_TableauBord(venteDAO, depenseDAO, approvisionnementDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void nouvelle_vente(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/nouvelle_vente.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/nouvelle_vente.fxml"));
+        Parent root = loader.load();
+        Nouvelle_venteController ctrl = loader.getController();
+        ctrl.setArticleDAO_NouvelleVenteDAO(articleDAO);
+        ctrl.setFactureDAO_NouvelleVente(factureDAO);
+        ctrl.setVenteDAO_NouvelleVenteDAO(venteDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void historique_vente(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/historique_vente.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/historique_vente.fxml"));
+        Parent root = loader.load();
+        Historique_venteController ctrl = loader.getController();
+        ctrl.setFactureDAO_HistoriqueVente(factureDAO);
+        ctrl.setVenteDAO_HistoriqueVente(venteDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void approvisionnement(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/approvisionnement.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/approvisionnement.fxml"));
+        Parent root = loader.load();
+        ApprovisionnementController ctrl = loader.getController();
+        ctrl.setApprovisionnementDAO_Appro(approvisionnementDAO);
+        ctrl.setArticleDAO_Appro(articleDAO);
+        try { ctrl.chargerApprovisionnement(); } catch (SQLException ignored) {}
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void consulter_stock(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/stock_nouvelle_article.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/stock_nouvelle_article.fxml"));
+        Parent root = loader.load();
+        Stock_nouvelle_articleController ctrl = loader.getController();
+        ctrl.setTypeArticleDAO_Stock(typeArticleDAO);
+        ctrl.setArticleDAO_Stock(articleDAO);
+        try { ctrl.chargerArticle(); ctrl.chargerTypeArticle(); } catch (SQLException ignored) {}
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void historique_depense(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/historique_depense.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/historique_depense.fxml"));
+        Parent root = loader.load();
+        Historique_depenseController ctrl = loader.getController();
+        ctrl.setDepenseDAO_HistoriqueDepense(depenseDAO);
+        try { ctrl.chargerDepense(); } catch (SQLException ignored) {}
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void nouvelle_depense(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/nouvelle_depense.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/nouvelle_depense.fxml"));
+        Parent root = loader.load();
+        Nouvelle_depenseController ctrl = loader.getController();
+        ctrl.setDepenseDAO_NouvelleDepense(depenseDAO);
+        try { ctrl.chargerDepense(); } catch (SQLException ignored) {}
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void entrees_caisse(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/entrees.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/entrees.fxml"));
+        Parent root = loader.load();
+        EntreesController ctrl = loader.getController();
+        ctrl.setVenteDAO_Entrees(venteDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void sorties_caisse(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/sorties.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/sorties.fxml"));
+        Parent root = loader.load();
+        SortiesController ctrl = loader.getController();
+        ctrl.setApprovisionnementDAO(approvisionnementDAO);
+        ctrl.setDepenseDAO_Sorties(depenseDAO);
+        ctrl.setArticleDAO(articleDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void caisse(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/caisse.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/caisse.fxml"));
+        Parent root = loader.load();
+        CaisseController ctrl = loader.getController();
+        ctrl.setDAO_Caisse(venteDAO, depenseDAO, approvisionnementDAO);
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
     private void utilisateur(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/utilisateur.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/utilisateur.fxml"));
+        Parent root = loader.load();
+        UtilisateurController ctrl = loader.getController();
+        ctrl.setUtilisateurDAO_Utilisateur(utilisateurDAO);
+        try { ctrl.chargerUtilisateur(); } catch (SQLException ignored) {}
         Stage stage = (Stage) nombre_depense_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }

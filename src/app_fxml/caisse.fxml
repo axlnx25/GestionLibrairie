@@ -231,7 +231,7 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <JFXButton layoutX="49.0" layoutY="8.0" onAction="#utilisateurs" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #1565C0;" text="UTILISATEURS" textFill="WHITE">
+                                                <JFXButton layoutX="49.0" layoutY="8.0" onAction="#utilisateur" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #1565C0;" text="UTILISATEURS" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Black" size="13.0" />
                                                     </font>

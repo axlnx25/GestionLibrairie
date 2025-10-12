@@ -27,6 +27,7 @@ public class Main extends Application {
         Connection connection = ConnectionDataBase.getConnection();
 
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO(connection);
+        // Initialiser uniquement ce qui est nécessaire à l'écran de connexion
         FactureDAO  factureDAO = new FactureDAO(connection);
         DepenseDAO depenseDAO = new DepenseDAO(connection);
         TypeArticleDAO typeArticleDAO = new TypeArticleDAO(connection);
@@ -39,90 +40,19 @@ public class Main extends Application {
         Parent root = loader.load();
         LoginController loginController = loader.getController();
 
-        FXMLLoader loaderAppro = new FXMLLoader(getClass().getResource("/app_fxml/approvisionnement.fxml"));
-        Parent rootAppro = loader.load();
-        ApprovisionnementController approvisionnementController = loaderAppro.getController();
-
-        FXMLLoader loaderCaisse = new FXMLLoader(getClass().getResource("/app_fxml/caisse.fxml"));
-        Parent rootCaisse = loader.load();
-        CaisseController caisseController = loaderCaisse.getController();
-
-        FXMLLoader loaderEntree = new FXMLLoader(getClass().getResource("/app_fxml/entrees_caisse.fxml"));
-        Parent rootEntree = loader.load();
-        EntreesController entreesController = loaderEntree.getController();
-
-        FXMLLoader loaderHistorique_Depense = new FXMLLoader(getClass().getResource("/app_fxml/historique_depense.fxml"));
-        Parent rootHistorique_Depense = loader.load();
-        Historique_depenseController historique_depenseController = loaderHistorique_Depense.getController();
-
-        FXMLLoader loaderHistorique_Vente = new FXMLLoader(getClass().getResource("/app_fxml/historique_vente.fxml"));
-        Parent rootHistorique_Vente = loader.load();
-        Historique_venteController historiqueVenteController = loaderHistorique_Vente.getController();
-
-        FXMLLoader loaderNouvelle_Depense = new FXMLLoader(getClass().getResource("/app_fxml/historique_depense.fxml"));
-        Parent rootNouvelle_Depense = loader.load();
-        Nouvelle_depenseController nouvelleDepenseController = loaderNouvelle_Depense.getController();
-
-        FXMLLoader loaderNouvelle_Vente = new FXMLLoader(getClass().getResource("/app_fxml/nouvelle_vente.fxml"));
-        Parent rootNouvelle_Vente = loader.load();
-        Nouvelle_venteController nouvelleVenteController = loaderNouvelle_Vente.getController();
-
-        FXMLLoader loaderSorties = new FXMLLoader(getClass().getResource("/app_fxml/sorties.fxml"));
-        Parent rootSorties = loader.load();
-        SortiesController sortiesController = loaderSorties.getController();
-
-        FXMLLoader loaderStock = new FXMLLoader(getClass().getResource("/app_fxml/stock_nouvelle_article.fxml"));
-        Parent rootStock = loader.load();
-        Stock_nouvelle_articleController stock_nouvelle_articleController = loaderStock.getController();
-
-        FXMLLoader loaderTableau = new FXMLLoader(getClass().getResource("/app_fxml/tableau_bord.fxml"));
-        Parent rootTableau = loader.load();
-        Tableau_bordController tableau_bordController = loaderTableau.getController();
-
-        FXMLLoader loaderType = new FXMLLoader(getClass().getResource("/app_fxml/type_article.fxml"));
-        Parent rootType = loader.load();
-        Type_articleController type_articleController = loaderType.getController();
-
-        FXMLLoader loaderUtilisateur = new FXMLLoader(getClass().getResource("/app_fxml/utilisateur.fxml"));
-        Parent rootUtilisateur = loader.load();
-        UtilisateurController utilisateurController = loaderUtilisateur.getController();
+        // Ne pas précharger les autres vues ici pour éviter d'appeler initialize()
+        // avant l'injection des DAO. Elles seront chargées après connexion.
 
 
 
 
 
-        //utiliser les setters dans les controller
+        // Injection nécessaire pour l'écran de connexion et pour la suite (réutilisation des DAO)
         loginController.setUtilisateurDAO_login(utilisateurDAO);
-        approvisionnementController.setApprovisionnementDAO_Appro(approvisionnementDAO);
-        approvisionnementController.setArticleDAO_Appro(articleDAO);
-        caisseController.setDAO_Caisse(venteDAO, depenseDAO, approvisionnementDAO);
-        entreesController.setVenteDAO_Entrees(venteDAO);
-        historique_depenseController.setDepenseDAO_HistoriqueDepense(depenseDAO);
-        historiqueVenteController.setFactureDAO_HistoriqueVente(factureDAO);
-        historiqueVenteController.setVenteDAO_HistoriqueVente(venteDAO);
-        nouvelleDepenseController.setDepenseDAO_NouvelleDepense(depenseDAO);
-        nouvelleVenteController.setArticleDAO_NouvelleVenteDAO(articleDAO);
-        nouvelleVenteController.setFactureDAO_NouvelleVente(factureDAO);
-        nouvelleVenteController.setVenteDAO_NouvelleVenteDAO(venteDAO);
-        sortiesController.setApprovisionnementDAO(approvisionnementDAO);
-        sortiesController.setDepenseDAO_Sorties(depenseDAO);
-        sortiesController.setArticleDAO(articleDAO);
-        stock_nouvelle_articleController.setTypeArticleDAO_Stock(typeArticleDAO);
-        stock_nouvelle_articleController.setArticleDAO_Stock(articleDAO);
-        tableau_bordController.setDAO_TableauBord(venteDAO, depenseDAO, approvisionnementDAO);
-        type_articleController.setTypeArticleDAO_TypeArticle(typeArticleDAO);
-        utilisateurController.setUtilisateurDAO_Utilisateur(utilisateurDAO);
+        loginController.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
 
 
-        //charger les données depuis la BDD
-        approvisionnementController.chargerApprovisionnement();
-        historique_depenseController.chargerDepense();
-        historiqueVenteController.chargerVente();
-        nouvelleDepenseController.chargerDepense();
-        stock_nouvelle_articleController.chargerArticle();
-        stock_nouvelle_articleController.chargerTypeArticle();
-        type_articleController.chargerTypeArticle();
-        utilisateurController.chargerUtilisateur();
+        // Ne rien charger tant que l'utilisateur n'est pas connecté
 
         Scene scene = new Scene(root);
 

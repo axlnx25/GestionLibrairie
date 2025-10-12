@@ -201,7 +201,7 @@
                                                         <Font name="Montserrat Black" size="13.0" />
                                                     </font>
                                                 </JFXButton>
-                                                <JFXButton layoutX="52.0" layoutY="54.0" onAction="#resultat_caisse" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #1565c0;" text="CAISSE" textFill="WHITE">
+                                                <JFXButton layoutX="52.0" layoutY="54.0" onAction="#caisse" prefHeight="30.0" prefWidth="70.0" style="-fx-background-color: #1565c0;" text="CAISSE" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Black" size="13.0" />
                                                     </font>

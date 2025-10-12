@@ -13,7 +13,7 @@ public class UtilisateurDAO {
     }
 
     public Utilisateur loginUtilisateur(String username, String password) throws SQLException {
-        String sql = "SELECT * FROM Utilisateur WHERE nom_utilisateur = ?, mot_de_passe = ?";
+        String sql = "SELECT * FROM Utilisateur WHERE nom_utilisateur = ? AND mot_de_passe = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, username);
         statement.setString(2, password);
