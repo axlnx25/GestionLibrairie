@@ -1,6 +1,8 @@
 package app_dao;
 
 import app_model.Vente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -8,6 +10,13 @@ import java.util.ArrayList;
 
 public class VenteDAO {
     private Connection connection;
+
+    private ObservableList<Vente> ventes = FXCollections.observableArrayList();
+
+    public ObservableList<Vente> getVentesObservable() {
+        return ventes;
+    }
+
 
     public VenteDAO(Connection conn) {
         this.connection = conn;
@@ -49,7 +58,7 @@ public class VenteDAO {
                     rs.getInt("remise_vente"),
                     rs.getInt("numero_utilisateur")
             );
-            v.setIdVente(rs.getInt("idVente"));
+            v.setIdVente(rs.getInt("id_vente"));
             ventes.add(v);
         }
         return ventes;

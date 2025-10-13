@@ -44,19 +44,18 @@ public class LoginController implements Initializable {
      * Initializes the controller class.
      */
 
-    UtilisateurDAO utilisateurDAO;
-    public void setUtilisateurDAO_login(UtilisateurDAO utilisateurDAO) {
-        this.utilisateurDAO = utilisateurDAO;
-    }
-
     // DAO utilisés après connexion (réutilisés, fournis par Main)
+    private UtilisateurDAO utilisateurDAO;
     private VenteDAO venteDAO;
     private DepenseDAO depenseDAO;
     private ApprovisionnementDAO approvisionnementDAO;
     private ArticleDAO articleDAO;
     private TypeArticleDAO typeArticleDAO;
     private FactureDAO factureDAO;
-    private UtilisateurDAO utilisateurDAOAll; // duplicate reference for menu usage if needed
+    public void setUtilisateurDAO_login(UtilisateurDAO utilisateurDAO) {
+        this.utilisateurDAO = utilisateurDAO;
+    }
+
     public void setAllDAO(VenteDAO venteDAO, DepenseDAO depenseDAO, ApprovisionnementDAO approvisionnementDAO,
                           ArticleDAO articleDAO, TypeArticleDAO typeArticleDAO, FactureDAO factureDAO,
                           UtilisateurDAO utilisateurDAO) {
@@ -66,7 +65,7 @@ public class LoginController implements Initializable {
         this.articleDAO = articleDAO;
         this.typeArticleDAO = typeArticleDAO;
         this.factureDAO = factureDAO;
-        this.utilisateurDAOAll = utilisateurDAO;
+        this.utilisateurDAO = utilisateurDAO;
     }
 
     @Override
@@ -87,7 +86,7 @@ public class LoginController implements Initializable {
                 Tableau_bordController tableauController = loaderTableau.getController();
                 // Injection des DAO nécessaires
                 tableauController.setDAO_TableauBord(venteDAO, depenseDAO, approvisionnementDAO);
-                tableauController.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAOAll);
+                tableauController.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
                 Stage stage = (Stage) nom_utilisateur_text_field.getScene().getWindow();
                 stage.setScene(new Scene(rootTableau));
                 stage.centerOnScreen();

@@ -1,6 +1,9 @@
 package app_dao;
 
 import app_model.Depense;
+import app_model.Vente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -134,6 +137,12 @@ public class DepenseDAO {
             if (rs.next()) return rs.getInt(1);
         }
         return 0;
+    }
+
+    private ObservableList<Depense> depenses = FXCollections.observableArrayList();
+
+    public ObservableList<Depense> getDepensesObservable() {
+        return depenses;
     }
 
 

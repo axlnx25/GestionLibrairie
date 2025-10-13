@@ -1,6 +1,9 @@
 package app_dao;
 
 import app_model.Approvisionnement;
+import app_model.Vente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -103,6 +106,12 @@ public class ApprovisionnementDAO {
             if (rs.next()) return rs.getInt(1);
         }
         return 0;
+    }
+
+    private ObservableList<Approvisionnement> approvisionnement = FXCollections.observableArrayList();
+
+    public ObservableList<Approvisionnement> getApprovisionnementObservable() {
+        return approvisionnement;
     }
 
 
