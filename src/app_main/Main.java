@@ -48,7 +48,7 @@ public class Main extends Application {
 
 
         // Injection nécessaire pour l'écran de connexion et pour la suite (réutilisation des DAO)
-        loginController.setUtilisateurDAO_login(utilisateurDAO);
+//        loginController.setUtilisateurDAO_login(utilisateurDAO);
         loginController.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
 
 

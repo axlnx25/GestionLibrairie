@@ -13,14 +13,26 @@ public class FactureDAO {
         this.connection = connection;
     }
 
-    public void ajouterFactureBDD (Facture facture) throws SQLException {
-        String sql ="INSERT INTO Facture (id_vente, id_article, quantite_vendu) VALUES (?,?,?)";
-        PreparedStatement statement  = connection.prepareStatement(sql);
-        statement.setInt(1, facture.getIdVente());
-        statement.setInt(2, facture.getIdArticle());
-        statement.setInt(3,facture.getQuantite());
-        statement.executeUpdate();
+    public void ajouterFactureBDD(Facture f) throws SQLException {
+        String checkSql = "SELECT COUNT(*) FROM Facture WHERE id_vente = ? AND id_article = ?";
+        PreparedStatement checkStmt = connection.prepareStatement(checkSql);
+        checkStmt.setInt(1, f.getIdVente());
+        checkStmt.setInt(2, f.getIdArticle());
+        ResultSet rs = checkStmt.executeQuery();
+        rs.next();
+        if (rs.getInt(1) > 0) {
+            // Déjà présent, on ne réinsère pas
+            return;
+        }
+
+        String sql = "INSERT INTO Facture (id_vente, id_article, quantite_vendu) VALUES (?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, f.getIdVente());
+        stmt.setInt(2, f.getIdArticle());
+        stmt.setInt(3, f.getQuantite());
+        stmt.executeUpdate();
     }
+
 
     public void supprimerFactureBDD (Facture facture) throws SQLException {
         String sql ="DELETE FROM Facture WHERE id_vente = ? AND id_article = ?";
@@ -32,7 +44,7 @@ public class FactureDAO {
 
     public ArrayList<FactureDTO> listerFactureParIdVente(int idVente) throws SQLException {
         ArrayList<FactureDTO> details = new ArrayList<>();
-        String sql = "SELECT a.designation_article, f.id_article, v.quantite_vendu, " +
+        String sql = "SELECT a.designation_article, f.id_article, f.quantite_vendu, " +
                 "a.prix_vente_article, v.date_vente, v.remise_vente " +
                 "FROM Facture f " +
                 "JOIN Article a ON f.id_article = a.id_article " +

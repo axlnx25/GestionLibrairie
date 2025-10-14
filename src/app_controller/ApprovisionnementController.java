@@ -162,6 +162,7 @@ public class ApprovisionnementController implements Initializable {
                 article_combo_box.setValue(selectedArticle);
             }
         });
+        date_text_field.setValue(LocalDate.now());
 
 
     }    
@@ -178,13 +179,12 @@ public class ApprovisionnementController implements Initializable {
     }
 
     @FXML
-    private void nouvelle_vente(ActionEvent event) throws IOException {
+    private void nouvelle_vente(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/nouvelle_vente.fxml"));
         Parent root = loader.load();
         Nouvelle_venteController ctrl = loader.getController();
-        ctrl.setArticleDAO_NouvelleVenteDAO(articleDAO);
-        ctrl.setFactureDAO_NouvelleVente(factureDAO);
-        ctrl.setVenteDAO_NouvelleVenteDAO(venteDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
+        ctrl.loadCombo();
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -194,19 +194,20 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/historique_vente.fxml"));
         Parent root = loader.load();
         Historique_venteController ctrl = loader.getController();
-        ctrl.setFactureDAO_HistoriqueVente(factureDAO);
-        ctrl.setVenteDAO_HistoriqueVente(venteDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
 
     @FXML
-    private void approvisionnement(ActionEvent event) throws IOException {
+    private void approvisionnement(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/approvisionnement.fxml"));
         Parent root = loader.load();
         ApprovisionnementController ctrl = loader.getController();
-        ctrl.setApprovisionnementDAO_Appro(approvisionnementDAO);
-        ctrl.setArticleDAO_Appro(articleDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
+        ctrl.loadCombo();
+        ctrl.loadColArticle();
+        ctrl.chargerApprovisionnement();
         try { ctrl.chargerApprovisionnement(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -217,8 +218,7 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/stock_nouvelle_article.fxml"));
         Parent root = loader.load();
         Stock_nouvelle_articleController ctrl = loader.getController();
-        ctrl.setTypeArticleDAO_Stock(typeArticleDAO);
-        ctrl.setArticleDAO_Stock(articleDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         try { ctrl.chargerArticle(); ctrl.chargerTypeArticle(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -229,7 +229,7 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/historique_depense.fxml"));
         Parent root = loader.load();
         Historique_depenseController ctrl = loader.getController();
-        ctrl.setDepenseDAO_HistoriqueDepense(depenseDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         try { ctrl.chargerDepense(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -240,7 +240,7 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/nouvelle_depense.fxml"));
         Parent root = loader.load();
         Nouvelle_depenseController ctrl = loader.getController();
-        ctrl.setDepenseDAO_NouvelleDepense(depenseDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         try { ctrl.chargerDepense(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -251,7 +251,8 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/entrees.fxml"));
         Parent root = loader.load();
         EntreesController ctrl = loader.getController();
-        ctrl.setVenteDAO_Entrees(venteDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
+        ctrl.loadEntrees();
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -261,9 +262,8 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/sorties.fxml"));
         Parent root = loader.load();
         SortiesController ctrl = loader.getController();
-        ctrl.setApprovisionnementDAO(approvisionnementDAO);
-        ctrl.setDepenseDAO_Sorties(depenseDAO);
-        ctrl.setArticleDAO(articleDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
+        ctrl.loadSorties();
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -273,7 +273,7 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/caisse.fxml"));
         Parent root = loader.load();
         CaisseController ctrl = loader.getController();
-        ctrl.setDAO_Caisse(venteDAO, depenseDAO, approvisionnementDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -283,7 +283,7 @@ public class ApprovisionnementController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/utilisateur.fxml"));
         Parent root = loader.load();
         UtilisateurController ctrl = loader.getController();
-        ctrl.setUtilisateurDAO_Utilisateur(utilisateurDAO);
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         try { ctrl.chargerUtilisateur(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -291,7 +291,10 @@ public class ApprovisionnementController implements Initializable {
 
     @FXML
     private void deconnexion(ActionEvent event) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("/app_fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/login.fxml"));
+        Parent root = loader.load();
+        LoginController ctrl = loader.getController();
+        ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
         Stage stage = (Stage) montant_text_field.getScene().getWindow();
         stage.setScene(new Scene(root));
     }
@@ -302,6 +305,7 @@ public class ApprovisionnementController implements Initializable {
         boolean okQuantite = ValidationEntree.validerNombre(quantite_text_field);
         boolean okMontant = ValidationEntree.validerNombre(montant_text_field);
         boolean okDate = ValidationEntree.validerDateObligatoire(date_text_field);
+
         if (okDate && okMontant && okFournisseur && okQuantite) {
             if (article_combo_box.getValue() != null) {
                 Approvisionnement a = new Approvisionnement(
@@ -312,21 +316,41 @@ public class ApprovisionnementController implements Initializable {
                         article_combo_box.getValue().getIdArticle(),
                         Session.getInstance().getIDUtilisateur()
                 );
+
+                // 1️Enregistre l’approvisionnement
                 approvisionnementDAO.ajouterApprovisionnementBDD(a);
                 approvisionnementObservableList.add(a);
 
+                // 2️ Met à jour le stock de l’article
+                articleDAO.augmenterQuantiteArticle(
+                        article_combo_box.getValue().getIdArticle(),
+                        Integer.parseInt(quantite_text_field.getText())
+                );
+
+                // 3️Réinitialise les champs
                 fournisseur_combo_box.setValue(null);
                 quantite_text_field.clear();
                 montant_text_field.clear();
                 date_text_field.setValue(null);
                 article_combo_box.setValue(null);
             } else {
-                //appel alert probleme date
+                // Alerte : aucun article sélectionné
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("ERREUR SELECTION");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez selectionner un article");
+                alert.showAndWait();
             }
         } else {
-            //appel alert verifier les valeurs des champs
+            // Alerte : vérifier les champs
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("CHAMP INVALIDE");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez verifier les informations saisies");
+            alert.showAndWait();
         }
     }
+
 
     @FXML
     private void modifier_approvisionnement(ActionEvent event) throws SQLException {
@@ -354,12 +378,27 @@ public class ApprovisionnementController implements Initializable {
                     article_combo_box.setValue(null);
                 } else {
                     //appel alert probleme date
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("CHAMP INVALIDE");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Veuillez verifier la date entrée");
+                    alert.showAndWait();
                 }
             } else {
                 //appel alert verifier les valeurs des champs
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("CHAMPS INVALIDES");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez verifier les informations saisies");
+                alert.showAndWait();
             }
         } else {
             //appel alert non selectionner
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERREUR SELECTION");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous n'avez rien selectionner selectionner.");
+            alert.showAndWait();
         }
     }
 
@@ -377,6 +416,11 @@ public class ApprovisionnementController implements Initializable {
             article_combo_box.setValue(null);
         } else {
             //appel alert non selectionner
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERREUR SELECTION");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous n'avez rien selectionner selectionner.");
+            alert.showAndWait();
         }
 
     }

@@ -1,5 +1,5 @@
 .custom-accordion {
-    -fx-background-color: #11565C0;  /* fond bleu */
+    -fx-background-color: #1565C0;  /* fond bleu - CORRIGÉ (enlevé le 1 en trop) */
 }
 
 /* le titre des TitledPane qui sont DANS cet accordion */
@@ -21,4 +21,3 @@
 .buttonq {
     -fx-max-width: Infinity;
 }
-

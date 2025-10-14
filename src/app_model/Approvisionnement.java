@@ -13,6 +13,8 @@ public class Approvisionnement {
     private IntegerProperty montantApprovisionnement = new SimpleIntegerProperty();
     private IntegerProperty numeroArticle = new SimpleIntegerProperty();
     private IntegerProperty codeUtilisateur = new SimpleIntegerProperty();
+    private StringProperty nomArticle = new SimpleStringProperty();
+
 
     public Approvisionnement (String stock_Origine, int quantite_Approvisionne, LocalDate date_Approvisionnement, int montantApprovisionne, int numero_Article, int codeUtilisateur) {
         this.stockOrigine.set(stock_Origine);
@@ -105,6 +107,18 @@ public class Approvisionnement {
 
     public IntegerProperty codeUtilisateurProperty() {
         return codeUtilisateur;
+    }
+
+    public StringProperty nomArticleProperty() {
+        return nomArticle;
+    }
+
+    public String getNomArticle() {
+        return nomArticle.get();
+    }
+
+    public void setNomArticle(String nom) {
+        this.nomArticle.set(nom);
     }
 
 }
