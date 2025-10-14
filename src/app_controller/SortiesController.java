@@ -159,7 +159,7 @@ public class SortiesController implements Initializable {
     private void calculerTotalSorties() throws SQLException {
         int totalDepenses = depenseDAO.getTotalDepense();
         int totalAppros = approvisionnementDAO.getTotalApprovisionnement();
-        total_sortie_label.setText((totalDepenses + totalAppros) + " FCFA");
+        total_sortie_label.setText("TOTAL: " + (totalDepenses + totalAppros) + " FCFA");
     }
 
 

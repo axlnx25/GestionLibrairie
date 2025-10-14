@@ -7,6 +7,7 @@ package app_controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import app_dao.*;
@@ -71,6 +72,7 @@ public class Nouvelle_depenseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        date_depense.setValue(LocalDate.now());
     }    
 
     @FXML

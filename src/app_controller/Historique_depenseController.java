@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import app_dao.*;
 import app_helper.ValidationEntree;
 import app_model.Depense;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,6 +91,18 @@ public class Historique_depenseController implements Initializable {
                 e.printStackTrace();
             }
         }
+
+        //  Définir le filtre par défaut du jour
+        Platform.runLater(() -> {
+            try {
+                date_debut_historique_depense.setValue(LocalDate.now());
+                date_fin_historique_depense.setValue(LocalDate.now());
+                filtre_historique_depense_par_defaut();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
     }    
 
     @FXML
@@ -226,6 +239,28 @@ public class Historique_depenseController implements Initializable {
 
     @FXML
     private void filtrer_historique_depense(ActionEvent event) throws SQLException {
+        boolean okDebut = ValidationEntree.validerDateObligatoire(date_debut_historique_depense);
+        boolean okFin = ValidationEntree.validerDateObligatoire(date_fin_historique_depense);
+        if (okDebut && okFin) {
+            historique_depense_table_view.getItems().clear();
+            depenseObservableList.clear();
+
+            depenseObservableList.setAll(depenseDAO.listerDepensefiltrer(date_debut_historique_depense.getValue(), date_fin_historique_depense.getValue()));
+            historique_depense_table_view.setItems(depenseObservableList);
+
+            valeur_depense_label.setText("TOTAL DEPENSE : " + depenseDAO.getTotalDepenseFiltre(date_debut_historique_depense.getValue(), date_fin_historique_depense.getValue()));
+        } else {
+            //appel alerte date erreur
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("CHAMP INVALIDE");
+            alert.setHeaderText(null);
+            alert.setContentText("Verifier la date entrée.");
+            alert.showAndWait();
+        }
+
+    }
+
+    private void filtre_historique_depense_par_defaut() throws SQLException {
         boolean okDebut = ValidationEntree.validerDateObligatoire(date_debut_historique_depense);
         boolean okFin = ValidationEntree.validerDateObligatoire(date_fin_historique_depense);
         if (okDebut && okFin) {

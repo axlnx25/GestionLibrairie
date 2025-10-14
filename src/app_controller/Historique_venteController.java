@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 
 public class Historique_venteController implements Initializable {
 
-    // --- Composants FXML ---
     @FXML private DatePicker date_debut_historique_facture;
     @FXML private DatePicker date_fin_historique_facture;
     @FXML private TableView<Vente> facture_table_view;
@@ -64,10 +63,9 @@ public class Historique_venteController implements Initializable {
         this.utilisateurDAO = utilisateurDAO;
     }
 
-    // --- Initialisation de la vue ---
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialisation des colonnes
+        // Colonnes principales
         colonne_date.setCellValueFactory(data -> data.getValue().dateVenteProperty());
         colonne_facture.setCellValueFactory(data -> data.getValue().idVenteProperty().asObject());
 
@@ -77,26 +75,26 @@ public class Historique_venteController implements Initializable {
 
         facture_table_view.setItems(venteObservableList);
 
-        // Événement : sélection d’une facture dans la table
+        // Lorsqu’on sélectionne une facture, on affiche ses détails
         facture_table_view.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
             if (newV != null && factureDAO != null && venteDAO != null) {
                 afficherDetailsFacture(newV);
             }
         });
 
-        //  Charger les ventes seulement après que les DAO soient injectés
+        //  Définir le filtre par défaut du jour
         Platform.runLater(() -> {
-            if (venteDAO != null) {
-                try {
-                    chargerVente();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            try {
+                date_debut_historique_facture.setValue(LocalDate.now());
+                date_fin_historique_facture.setValue(LocalDate.now());
+                filtre_historique_facture_par_defaut();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         });
     }
 
-    // --- Méthode pour afficher les détails d’une facture sélectionnée ---
+    // --- Afficher les détails d’une facture ---
     private void afficherDetailsFacture(Vente vente) {
         try {
             ArrayList<FactureDTO> details = factureDAO.listerFactureParIdVente(vente.getIdVente());
@@ -110,11 +108,21 @@ public class Historique_venteController implements Initializable {
         }
     }
 
-    // --- Filtrage des ventes par date ---
+    // --- Filtrage manuel par date ---
     @FXML
     private void filtre_historique_facture(ActionEvent event) throws SQLException {
-        boolean okDebut = ValidationEntree.validerDateObligatoire(date_debut_historique_facture);
-        boolean okFin = ValidationEntree.validerDateObligatoire(date_fin_historique_facture);
+        appliquerFiltrage(date_debut_historique_facture.getValue(), date_fin_historique_facture.getValue());
+    }
+
+    // --- Filtrage automatique par défaut (ventes du jour) ---
+    private void filtre_historique_facture_par_defaut() throws SQLException {
+        LocalDate aujourdHui = LocalDate.now();
+        appliquerFiltrage(aujourdHui, aujourdHui);
+    }
+
+    private void appliquerFiltrage(LocalDate debut, LocalDate fin) throws SQLException {
+        boolean okDebut = debut != null;
+        boolean okFin = fin != null;
 
         if (okDebut && okFin) {
             remise_facture_label.setText("");
@@ -122,46 +130,24 @@ public class Historique_venteController implements Initializable {
             montant_vente_label.setText("");
 
             venteObservableList.clear();
-            venteObservableList.setAll(
-                    venteDAO.filtrerVenteDate(
-                            date_debut_historique_facture.getValue(),
-                            date_fin_historique_facture.getValue()
-                    )
-            );
+            venteObservableList.setAll(venteDAO.filtrerVenteDate(debut, fin));
         } else {
-            // TODO : afficher une alerte de validation ici
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("CHAMP INVALIDE");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifiez la date entrée - Dates invalides !.");
+            alert.setContentText("Veuillez vérifier les dates !");
             alert.showAndWait();
-            System.out.println("Dates invalides !");
         }
     }
 
-    // --- Chargement initial des ventes ---
+    // --- Chargement initial des ventes (optionnel) ---
     public void chargerVente() throws SQLException {
         if (venteDAO != null) {
             venteObservableList.setAll(venteDAO.obtenirVentesBDD());
         }
     }
 
-//    // --- Navigation entre vues ---
-//    private void changerDeScene(String fxmlPath, Object controllerConsumer) throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-//        Parent root = loader.load();
-//
-//        Object ctrl = loader.getController();
-//        if (ctrl instanceof Initializable) {
-//            if (controllerConsumer instanceof Historique_venteController hv)
-//                hv.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
-//        }
-//
-//        Stage stage = (Stage) montant_vente_label.getScene().getWindow();
-//        stage.setScene(new Scene(root));
-//    }
-
-    // --- Méthodes de menu ---
+    // --- Navigation entre vues ---
     @FXML private void afficher_tableau_de_bord(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/app_fxml/tableau_bord.fxml"));
         Parent root = loader.load();
@@ -186,7 +172,6 @@ public class Historique_venteController implements Initializable {
         Parent root = loader.load();
         Historique_venteController ctrl = loader.getController();
         ctrl.setAllDAO(venteDAO, depenseDAO, approvisionnementDAO, articleDAO, typeArticleDAO, factureDAO, utilisateurDAO);
-        try { ctrl.chargerVente(); } catch (SQLException ignored) {}
         Stage stage = (Stage) montant_vente_label.getScene().getWindow();
         stage.setScene(new Scene(root));
     }

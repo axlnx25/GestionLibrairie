@@ -162,6 +162,7 @@ public class ApprovisionnementController implements Initializable {
                 article_combo_box.setValue(selectedArticle);
             }
         });
+        date_text_field.setValue(LocalDate.now());
 
 
     }    

@@ -7,6 +7,7 @@ package app_controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -123,6 +124,7 @@ public class Nouvelle_venteController implements Initializable {
 
         nouvelle_vente_tableview.setItems(lignesFactureObservable);
         remise_text_field.setText("0");
+        date_vente.setValue(LocalDate.now());
     }
 
     @FXML
