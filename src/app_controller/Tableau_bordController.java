@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +40,10 @@ public class Tableau_bordController implements Initializable {
     private Label total_depense_label;
     @FXML
     private Label total_encaisse_label;
+
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
 
     /**
      * Initializes the controller class.
@@ -82,6 +89,10 @@ public class Tableau_bordController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Application des restrictions d'accès selon les rôles
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle);
+
         // Les DAO peuvent ne pas être encore injectés ici. Si null, attendre l'injection.
         if (venteDAO == null || depenseDAO == null || approvisionnementDAO == null) {
             return;

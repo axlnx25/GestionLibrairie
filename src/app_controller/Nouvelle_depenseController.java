@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.Session;
 import app_helper.ValidationEntree;
 import app_model.Depense;
@@ -25,7 +26,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
+
+import javafx.scene.image.ImageView;
+
 
 /**
  * FXML Controller class
@@ -41,6 +46,10 @@ public class Nouvelle_depenseController implements Initializable {
     @FXML
     private TextField montant_depense;
 
+    @FXML private TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
+    @FXML private ImageView ivArticle;
     /**
      * Initializes the controller class.
      */
@@ -71,6 +80,8 @@ public class Nouvelle_depenseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle, ivArticle);
         // TODO
         date_depense.setValue(LocalDate.now());
     }    

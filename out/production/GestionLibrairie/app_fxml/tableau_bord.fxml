@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_controller.Tableau_bordController">
+<BorderPane prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_controller.Tableau_bordController">
+
     <top>
         <HBox prefHeight="94.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -113,7 +114,7 @@
                         </ImageView>
                         <Accordion>
                             <panes>
-                                <TitledPane animated="false" prefHeight="130.0" prefWidth="232.0" text="ARTICLE" textFill="WHITE">
+                                <TitledPane fx:id="tpArticle" animated="false" prefHeight="130.0" prefWidth="232.0" text="ARTICLE" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -185,7 +186,7 @@
                         </ImageView>
                         <Accordion prefHeight="120.0" prefWidth="227.0" styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                             <panes>
-                                <TitledPane animated="false" prefHeight="110.0" prefWidth="227.0" text="TRESORERIE" textFill="WHITE">
+                                <TitledPane fx:id="tpTresor" animated="false" prefHeight="110.0" prefWidth="227.0" text="TRESORERIE" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -227,7 +228,7 @@
                         </ImageView>
                         <Accordion styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                             <panes>
-                                <TitledPane animated="false" prefHeight="95.0" prefWidth="250.0" text="UTILISATEURS" textFill="WHITE">
+                                <TitledPane fx:id="tpUser" animated="false" prefHeight="95.0" prefWidth="250.0" text="UTILISATEURS" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -311,6 +312,25 @@
                      </children>
                   </VBox>
                   <AnchorPane prefHeight="319.0" prefWidth="51.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css" HBox.hgrow="ALWAYS" />
+                  <VBox layoutX="70.0" layoutY="10.0" prefHeight="241.0" prefWidth="334.0" styleClass="buttonq" stylesheets="@../app_css/design_base.css">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../app_media/vente-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nombre_vente_label1" prefHeight="44.0" prefWidth="279.0" text="NOMBRES DE VENTES XXX">
+                           <font>
+                              <Font name="Montserrat Black" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="total_vente_label1" prefHeight="44.0" prefWidth="279.0" text="TOTAL VENTE XXXXXX F">
+                           <font>
+                              <Font name="Montserrat Black" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <AnchorPane prefHeight="53.0" prefWidth="806.0" />

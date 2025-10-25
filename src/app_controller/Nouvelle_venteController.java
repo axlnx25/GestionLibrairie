@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.Session;
 import app_helper.ValidationEntree;
 import app_model.Article;
@@ -56,6 +57,12 @@ public class Nouvelle_venteController implements Initializable {
     private TextField remise_text_field;
     @FXML
     private DatePicker date_vente;
+
+
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
+
 
     /**
      * Initializes the controller class.
@@ -115,6 +122,9 @@ public class Nouvelle_venteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle);
+
         if (articleDAO != null) {
             try { loadCombo(); } catch (SQLException e) { e.printStackTrace(); }
         }

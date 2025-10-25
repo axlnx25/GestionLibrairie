@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.ValidationEntree;
 import app_model.Depense;
 import javafx.application.Platform;
@@ -47,6 +48,10 @@ public class Historique_depenseController implements Initializable {
     @FXML
     private Label valeur_depense_label;
 
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
+
     /**
      * Initializes the controller class.
      */
@@ -78,6 +83,9 @@ public class Historique_depenseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle);
+
         historique_depense_table_view.setItems(depenseObservableList);
 
         colonne_motif.setCellValueFactory(data -> data.getValue().designationDepenseProperty());
