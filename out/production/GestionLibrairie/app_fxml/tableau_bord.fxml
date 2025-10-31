@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_controller.Tableau_bordController">
+<BorderPane prefHeight="792.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app_controller.Tableau_bordController">
+
     <top>
         <HBox prefHeight="94.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
@@ -106,14 +107,14 @@
                 </HBox>
                 <HBox prefHeight="129.0" prefWidth="276.0" styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="article_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/article-removebg-preview.png" />
                             </image>
                         </ImageView>
                         <Accordion>
                             <panes>
-                                <TitledPane animated="false" prefHeight="130.0" prefWidth="232.0" text="ARTICLE" textFill="WHITE">
+                                <TitledPane fx:id="tpArticle" animated="false" prefHeight="130.0" prefWidth="232.0" text="ARTICLE" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -158,7 +159,7 @@
                                                         <Font name="Montserrat Black" size="13.0" />
                                                     </font>
                                                 </JFXButton>
-                                                <JFXButton layoutX="41.0" layoutY="4.0" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: #1565c0;" text="NOUVELLE DEPENSE" textFill="WHITE">
+                                                <JFXButton layoutX="41.0" layoutY="4.0" onAction="#nouvelle_depense" prefHeight="30.0" prefWidth="169.0" style="-fx-background-color: #1565c0;" text="NOUVELLE DEPENSE" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Black" size="13.0" />
                                                     </font>
@@ -178,14 +179,14 @@
                 </HBox>
                 <HBox prefHeight="117.0" prefWidth="276.0">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tresorerie_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/tresorerie-removebg-preview.png" />
                             </image>
                         </ImageView>
                         <Accordion prefHeight="120.0" prefWidth="227.0" styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                             <panes>
-                                <TitledPane animated="false" prefHeight="110.0" prefWidth="227.0" text="TRESORERIE" textFill="WHITE">
+                                <TitledPane fx:id="tpTresor" animated="false" prefHeight="110.0" prefWidth="227.0" text="TRESORERIE" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -220,14 +221,14 @@
                 </HBox>
                 <HBox prefHeight="82.0" prefWidth="276.0">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="utilisateur_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/utilisateur-removebg-preview.png" />
                             </image>
                         </ImageView>
                         <Accordion styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                             <panes>
-                                <TitledPane animated="false" prefHeight="95.0" prefWidth="250.0" text="UTILISATEURS" textFill="WHITE">
+                                <TitledPane fx:id="tpUser" animated="false" prefHeight="95.0" prefWidth="250.0" text="UTILISATEURS" textFill="WHITE">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>

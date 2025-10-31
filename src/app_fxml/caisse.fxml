@@ -106,7 +106,7 @@
                 </HBox>
                 <HBox prefHeight="129.0" prefWidth="276.0" styleClass="custom-accordion" stylesheets="@../app_css/design_base.css">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="article_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/article-removebg-preview.png" />
                             </image>
@@ -178,7 +178,7 @@
                 </HBox>
                 <HBox prefHeight="117.0" prefWidth="276.0">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="tresorerie_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/tresorerie-removebg-preview.png" />
                             </image>
@@ -220,7 +220,7 @@
                 </HBox>
                 <HBox prefHeight="82.0" prefWidth="276.0">
                     <children>
-                        <ImageView fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="utilisateur_image" fitHeight="53.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../app_media/utilisateur-removebg-preview.png" />
                             </image>
