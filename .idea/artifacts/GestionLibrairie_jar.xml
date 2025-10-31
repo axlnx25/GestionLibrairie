@@ -5,9 +5,6 @@
       <element id="archive" name="GestionLibrairie.jar">
         <element id="module-output" name="GestionLibrairie" />
       </element>
-      <element id="library" level="project" name="jfoenix-9.0.10" />
-      <element id="library" level="project" name="mysql-connector-j-9.4.0" />
-      <element id="library" level="project" name="lib" />
     </root>
   </artifact>
 </component>

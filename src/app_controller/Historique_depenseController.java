@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.ValidationEntree;
 import app_model.Depense;
 import javafx.application.Platform;
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +48,16 @@ public class Historique_depenseController implements Initializable {
     private TableColumn<Depense, LocalDate> colonne_date;
     @FXML
     private Label valeur_depense_label;
+    @FXML
+    private ImageView article_image;
+    @FXML
+    private ImageView tresorerie_image;
+    @FXML
+    private ImageView utilisateur_image;
+
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
 
     /**
      * Initializes the controller class.
@@ -78,6 +90,9 @@ public class Historique_depenseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle, article_image, tresorerie_image, utilisateur_image);
+
         historique_depense_table_view.setItems(depenseObservableList);
 
         colonne_motif.setCellValueFactory(data -> data.getValue().designationDepenseProperty());

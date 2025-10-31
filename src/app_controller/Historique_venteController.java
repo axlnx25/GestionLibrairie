@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import app_DTO.FactureDTO;
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.ValidationEntree;
 import app_model.Vente;
 import javafx.application.Platform;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Historique_venteController implements Initializable {
@@ -37,6 +39,16 @@ public class Historique_venteController implements Initializable {
     @FXML private TableColumn<FactureDTO, Integer> colonne_prix_unitaire;
     @FXML private Label remise_facture_label;
     @FXML private Label montant_vente_label;
+    @FXML
+    private ImageView article_image;
+    @FXML
+    private ImageView tresorerie_image;
+    @FXML
+    private ImageView utilisateur_image;
+
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
 
     // --- DAO ---
     private VenteDAO venteDAO;
@@ -65,6 +77,9 @@ public class Historique_venteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle, article_image, tresorerie_image, utilisateur_image);
+
         // Colonnes principales
         colonne_date.setCellValueFactory(data -> data.getValue().dateVenteProperty());
         colonne_facture.setCellValueFactory(data -> data.getValue().idVenteProperty().asObject());

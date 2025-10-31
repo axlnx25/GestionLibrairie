@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import app_dao.*;
+import app_helper.GestionAcces;
 import app_helper.Session;
 import app_helper.ValidationEntree;
 import app_model.Article;
@@ -27,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -56,6 +58,18 @@ public class Nouvelle_venteController implements Initializable {
     private TextField remise_text_field;
     @FXML
     private DatePicker date_vente;
+    @FXML
+    private ImageView article_image;
+    @FXML
+    private ImageView tresorerie_image;
+    @FXML
+    private ImageView utilisateur_image;
+
+
+    @FXML private  TitledPane tpUser;
+    @FXML private  TitledPane tpTresor;
+    @FXML private  TitledPane tpArticle;
+
 
     /**
      * Initializes the controller class.
@@ -115,6 +129,9 @@ public class Nouvelle_venteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        GestionAcces.restrictForNonAdmin(tpUser, tpTresor, tpArticle, article_image, tresorerie_image, utilisateur_image);
+
         if (articleDAO != null) {
             try { loadCombo(); } catch (SQLException e) { e.printStackTrace(); }
         }
@@ -361,7 +378,11 @@ public class Nouvelle_venteController implements Initializable {
         LigneFacture selected = nouvelle_vente_tableview.getSelectionModel().getSelectedItem();
         if (selected != null) {
             lignesFactureObservable.remove(selected);
-            recalculerMontantTotal();
+            try {
+                recalculerMontantTotal();
+            } catch (NumberFormatException e) {
+                System.out.println("invalide");
+            }
         }
     }
 
