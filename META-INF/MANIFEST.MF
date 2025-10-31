@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: app_main.Main
-Class-Path: jfoenix-9.0.10.jar mysql-connector-j-9.4.0.jar javafx-swt.ja
- r javafx.web.jar javafx.base.jar javafx.fxml.jar javafx.media.jar javaf
- x.swing.jar javafx.controls.jar javafx.graphics.jar
-Created-By: 17.0.16 (Azul Systems, Inc.)
-
