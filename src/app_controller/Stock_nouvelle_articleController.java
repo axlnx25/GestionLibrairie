@@ -248,7 +248,7 @@ public class Stock_nouvelle_articleController implements Initializable {
             // On crée une nouvelle liste pour stocker les articles filtrés
             ObservableList<Article> articlesFiltres = FXCollections.observableArrayList();
 
-            for (Article article : stock_tableview.getItems()) {
+            for (Article article : articleObservableList) {
                 if (article.getTypeArticle().equals(filtre_type_article_combobox.getValue())) {
                     articlesFiltres.add(article);
                 }
